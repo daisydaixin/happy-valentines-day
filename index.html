@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Gift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #ff99cc, #ff1a66);
+            background: linear-gradient(135deg, #FFD6E0, #FFB3C1); /* 颜色调浅 */
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: white;
-            font-family: 'Microsoft Yahei', cursive;
+            color: #4A235A; /* 深紫色，提高对比度 */
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 48px;
+            margin-top: 20px;
         }
 
         #mainContent {
@@ -24,14 +31,15 @@
         button {
             padding: 15px 30px;
             font-size: 20px;
-            background: #ff3366;
+            background: #FF6699;
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 102, 153, 0.4);
             transition: transform 0.3s;
             margin: 20px;
+            font-family: 'Poppins', sans-serif;
         }
 
         button:hover {
@@ -43,12 +51,13 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            color: #ff3366;
-            width: 300px;
+            color: #FF3366;
+            width: 320px;
             margin: 20px auto;
             display: none;
             position: relative;
             animation: cardAppear 0.8s ease-out;
+            font-family: 'Poppins', sans-serif;
         }
 
         @keyframes cardAppear {
@@ -57,84 +66,3 @@
         }
 
         .save-btn {
-            background: #4CAF50;
-            margin-top: 15px;
-        }
-
-        audio {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 播放按钮 -->
-    <button id="musicButton" style="position: fixed; top: 20px; left: 20px; z-index: 9999;">
-        🎵 点击播放音乐
-    </button>
-
-    <!-- 音频元素 -->
-    <audio id="bgMusic" loop>
-        <source src="https://daisydaixin.github.io/happy-valentines-day/A_Thousand_Years.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放
-    </audio>
-
-    <div id="mainContent">
-        <h1>Happy Valentine's Day🌹</h1>
-        <p>Love u and miss u, my babe~</p>
-        
-        <button onclick="showCard()">点击查看你的情人节礼物</button>
-
-        <div class="card" id="giftCard">
-            <h2>💝 礼物卡</h2>
-            <hr>
-            <p>礼物编号：NO.20250214520</p>
-            <p>礼物详情：Secret</p>
-            <p style="color: #666; font-size: 14px;">请于恋爱存续期内凭此卡找dxx兑换</p>
-            <button class="save-btn" onclick="saveCard()">保存礼物卡</button>
-        </div>
-    </div>
-
-    <script>
-        // 在页面加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
-          const audio = document.getElementById('bgMusic');
-          const musicButton = document.getElementById('musicButton');
-
-          // 点击按钮播放/暂停音乐
-          musicButton.addEventListener('click', () => {
-            if (audio.paused) {
-              audio.play();
-              musicButton.textContent = '⏸ 暂停音乐';
-            } else {
-              audio.pause();
-              musicButton.textContent = '🎵 点击播放音乐';
-            }
-          });
-
-          // 尝试自动播放（某些浏览器可能仍会阻止）
-          audio.play().catch(() => {
-            // 自动播放失败时不处理，等待用户点击
-          });
-        });
-
-        // 显示礼物卡
-        function showCard() {
-            document.getElementById('giftCard').style.display = 'block';
-        }
-
-        // 保存礼物卡
-        function saveCard() {
-            html2canvas(document.querySelector("#giftCard")).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'dxx的礼物卡.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
-        }
-    </script>
-
-</body>
-</html>
