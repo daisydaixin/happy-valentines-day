@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Gift</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
     <style>
+        /* 更浅的粉色背景 */
         body {
-            background: linear-gradient(135deg, #FFD6E0, #FFB3C1); /* 颜色调浅 */
+            background: linear-gradient(135deg, #ffd9e6, #ff99cc);
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #4A235A; /* 深紫色，提高对比度 */
-            font-family: 'Poppins', sans-serif;
+            color: white;
+            font-family: 'Playfair Display', 'Dancing Script', Arial, sans-serif;
             overflow: hidden;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 48px;
-            margin-top: 20px;
         }
 
         #mainContent {
@@ -28,36 +26,37 @@
             margin-top: 50px;
         }
 
+        /* 按钮样式 */
         button {
             padding: 15px 30px;
             font-size: 20px;
-            background: #FF6699;
+            background: #ff6699;
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 102, 153, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
             transition: transform 0.3s;
-            margin: 20px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Dancing Script', 'Playfair Display', Arial, sans-serif;
         }
 
         button:hover {
             transform: scale(1.05);
         }
 
+        /* 礼物卡样式 */
         .card {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            color: #FF3366;
-            width: 320px;
+            color: #ff3366;
+            width: 300px;
             margin: 20px auto;
             display: none;
             position: relative;
             animation: cardAppear 0.8s ease-out;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Playfair Display', Arial, sans-serif;
         }
 
         @keyframes cardAppear {
@@ -66,3 +65,45 @@
         }
 
         .save-btn {
+            background: #4CAF50;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mainContent">
+        <h1 style="font-family: 'Dancing Script', cursive; font-size: 40px;">Happy Valentine's Day 🌹</h1>
+        <p style="font-family: 'Playfair Display', serif; font-size: 22px;">Love u and miss u, my babe~</p>
+        
+        <button onclick="showCard()">点击查看你的情人节礼物</button>
+
+        <div class="card" id="giftCard">
+            <h2 style="font-family: 'Dancing Script', cursive;">💝 礼物卡</h2>
+            <hr>
+            <p>礼物编号：NO.20250214520</p>
+            <p>礼物详情：Secret</p>
+            <p style="color: #666; font-size: 14px;">请于恋爱存续期内凭此卡找dxx兑换</p>
+            <button class="save-btn" onclick="saveCard()">保存礼物卡</button>
+        </div>
+    </div>
+
+    <script>
+        // 显示礼物卡
+        function showCard() {
+            document.getElementById('giftCard').style.display = 'block';
+        }
+
+        // 保存礼物卡
+        function saveCard() {
+            html2canvas(document.querySelector("#giftCard")).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'dxx的礼物卡.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
+
+</body>
+</html>
