@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-    <title>Valentine's Gift</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <title>Valentine's Gift</title>
     <style>
         body {
             background: linear-gradient(135deg, #ff99cc, #ff1a66);
@@ -69,14 +69,17 @@
     </style>
 </head>
 <body>
-    <!-- 使用 GitHub Pages 托管的音频链接 -->
-    <audio id="bg-music" loop autoplay>
+
+    <!-- 播放按钮 -->
+    <button id="musicButton" style="position: fixed; top: 20px; left: 20px; z-index: 9999;">
+        🎵 点击播放音乐
+    </button>
+
+    <!-- 音频元素 -->
+    <audio id="bgMusic" loop>
         <source src="https://daisydaixin.github.io/happy-valentines-day/A_Thousand_Years.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放
     </audio>
-
-    <!-- 播放按钮 -->
-    <button onclick="playMusic()">播放音乐 🎵</button>
 
     <div id="mainContent">
         <h1>Happy Valentine's Day🌹</h1>
@@ -95,6 +98,13 @@
     </div>
 
     <script>
+        // 播放音乐函数
+        document.getElementById('musicButton').addEventListener('click', function() {
+            var audio = document.getElementById('bgMusic');
+            audio.play();
+            this.style.display = 'none';  // 隐藏播放按钮
+        });
+
         function showCard() {
             document.getElementById('giftCard').style.display = 'block';
         }
@@ -107,11 +117,7 @@
                 link.click();
             });
         }
-
-        function playMusic() {
-            var audio = document.getElementById("bg-music");
-            audio.play();
-        }
     </script>
+
 </body>
 </html>
