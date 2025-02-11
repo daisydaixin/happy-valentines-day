@@ -1,135 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine's Day Gift</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background-color: #000; /* Use a solid background color instead of a sound file */
-    }
+    <title>Valentine's Gift</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff99cc, #ff1a66);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-family: 'Microsoft Yahei', cursive;
+            overflow: hidden;
+        }
 
-    h1 {
-      font-size: 2.5em;
-      margin-top: 20%;
-    }
+        #mainContent {
+            text-align: center;
+            margin-top: 50px;
+        }
 
-    p {
-      font-size: 1.5em;
-      margin-top: 20px;
-    }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            transition: transform 0.3s;
+            margin: 20px;
+        }
 
-    button {
-      padding: 15px 30px;
-      font-size: 1.2em;
-      margin-top: 20px;
-      background-color: red;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 8px;
-    }
+        button:hover {
+            transform: scale(1.05);
+        }
 
-    button:hover {
-      background-color: darkred;
-    }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            color: #ff3366;
+            width: 300px;
+            margin: 20px auto;
+            display: none;
+            position: relative;
+            animation: cardAppear 0.8s ease-out;
+        }
 
-    .gift-card {
-      display: none;
-      background-color: rgba(255, 255, 255, 0.8);
-      width: 300px;
-      margin: 50px auto;
-      padding: 20px;
-      border-radius: 10px;
-    }
+        @keyframes cardAppear {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
 
-    .gift-card h2 {
-      margin: 0;
-    }
+        .save-btn {
+            background: #4CAF50;
+            margin-top: 15px;
+        }
 
-    .gift-card p {
-      font-size: 1.1em;
-    }
-
-    .save-btn {
-      padding: 10px 20px;
-      background-color: green;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .save-btn:hover {
-      background-color: darkgreen;
-    }
-  </style>
+        audio {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
 </head>
 <body>
+    <audio controls autoplay loop>
+        <source src="A Thousand Years.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
 
-  <h1>Happy Valentine's Day🌹</h1>
-  <p>Love u and miss u, my babe~</p>
+    <div id="mainContent">
+        <h1>Happy Valentine's Day🌹</h1>
+        <p>Love u and miss u, my babe~</p>
+        
+        <button onclick="showCard()">点击查看你的情人节礼物</button>
 
-  <button onclick="showGiftCard()">请点击下方查看你的情人节礼物</button>
+        <div class="card" id="giftCard">
+            <h2>💝 礼物卡</h2>
+            <hr>
+            <p>礼物编号：NO.20250214520</p>
+            <p>礼物详情：Secret</p>
+            <p style="color: #666; font-size: 14px;">请于恋爱存续期内凭此卡找dxx兑换</p>
+            <button class="save-btn" onclick="saveCard()">保存礼物卡</button>
+        </div>
+    </div>
 
-  <div id="giftCard" class="gift-card">
-      <h2>礼物编号：NO.20250214520</h2>
-      <p>礼物详情：Secret</p>
-      <p>请于恋爱存续期内凭此卡找dxx兑换</p>
-      <button class="save-btn" onclick="saveGiftCard()">保存礼物卡</button>
-  </div>
+    <script>
+        function showCard() {
+            document.getElementById('giftCard').style.display = 'block';
+        }
 
-  <!-- Correct way to add background audio -->
-  <audio id="backgroundAudio" autoplay loop>
-      <source src="A_Thousand_Years.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-  </audio>
-
-  <canvas id="giftCardCanvas" style="display:none;"></canvas>
-
-  <script>
-    // Show gift card when button is clicked
-    function showGiftCard() {
-        document.getElementById('giftCard').style.display = 'block';
-    }
-
-    // Save gift card functionality using canvas to generate an image
-    function saveGiftCard() {
-        var canvas = document.getElementById('giftCardCanvas');
-        var ctx = canvas.getContext('2d');
-        var giftCardDiv = document.getElementById('giftCard');
-
-        // Set canvas size (same as gift card dimensions)
-        canvas.width = giftCardDiv.offsetWidth;
-        canvas.height = giftCardDiv.offsetHeight;
-
-        // Draw gift card content on canvas
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Add text for the gift card
-        ctx.fillStyle = 'black';
-        ctx.font = '20px Arial';
-        ctx.fillText('礼物编号：NO.20250214520', 20, 30);
-        ctx.fillText('礼物详情：Secret', 20, 70);
-        ctx.fillText('请于恋爱存续期内凭此卡找dxx兑换', 20, 110);
-
-        // Convert canvas content to image
-        var imageUrl = canvas.toDataURL('image/png');
-
-        // Create a temporary link to trigger download
-        var link = document.createElement('a');
-        link.href = imageUrl;
-        link.download = 'Valentines_Gift_Card.png';
-        link.click();
-    }
-  </script>
-
+        function saveCard() {
+            html2canvas(document.querySelector("#giftCard")).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'dxx的礼物卡.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
 </body>
 </html>
