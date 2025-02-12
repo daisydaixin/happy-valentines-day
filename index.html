@@ -7,9 +7,9 @@
     
     <!-- 引入 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Dancing+Script" as="style">
     
     <!-- 引入 html2canvas -->
-
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@latest/dist/html2canvas.min.js"></script>
 
     <style>
@@ -174,25 +174,57 @@
         //         link.click();
         //     });
         // }
-
-
         function saveCard() {
-            // 等待 200 毫秒确保卡片完全显示
-            setTimeout(() => {
-                html2canvas(document.querySelector("#giftCard"), {
-                    useCORS: true, // 允许跨域
-                    allowTaint: false,
-                    scale: 2  // 提高渲染分辨率，防止图片模糊
-                }).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = 'dxx的礼物卡.png';
-                    link.href = canvas.toDataURL();
-                    link.click();
-                }).catch(error => {
-                    console.error('html2canvas 错误:', error); // 捕获错误并打印
-                });
-            }, 200);
+            // 临时禁用动画和过渡
+            const card = document.getElementById('giftCard');
+            const originalStyle = card.style.cssText;
+            card.style.animation = 'none';
+            card.style.transition = 'none';
+        
+            // 配置高清截图参数
+            const dpr = window.devicePixelRatio || 2;
+            const scale = 3 * dpr; // 根据设备像素比动态调整
+            
+            html2canvas(card, {
+                scale: scale,                // 超高分辨率缩放
+                useCORS: true,               // 允许跨域资源（如字体）
+                logging: true,              // 调试时开启日志
+                allowTaint: false,
+                backgroundColor: null,      // 保持透明背景
+                windowWidth: card.scrollWidth * dpr,
+                windowHeight: card.scrollHeight * dpr
+            }).then(canvas => {
+                // 恢复原始样式
+                card.style.cssText = originalStyle;
+        
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.download = `hyr的礼物卡.png`;
+                link.href = canvas.toDataURL('image/png', 1.0); // 最高质量
+                link.click();
+            }).catch(error => {
+                console.error('截图失败:', error);
+                card.style.cssText = originalStyle; // 确保恢复样式
+            });
         }
+
+        // function saveCard() {
+        //     // 等待 200 毫秒确保卡片完全显示
+        //     setTimeout(() => {
+        //         html2canvas(document.querySelector("#giftCard"), {
+        //             useCORS: true, // 允许跨域
+        //             allowTaint: false,
+        //             scale: 2  // 提高渲染分辨率，防止图片模糊
+        //         }).then(canvas => {
+        //             const link = document.createElement('a');
+        //             link.download = 'dxx的礼物卡.png';
+        //             link.href = canvas.toDataURL();
+        //             link.click();
+        //         }).catch(error => {
+        //             console.error('html2canvas 错误:', error); // 捕获错误并打印
+        //         });
+        //     }, 200);
+        // }
         // function saveCard() {
         //     html2canvas(document.querySelector("#giftCard")).then(canvas => {
         //         const link = document.createElement('a');
