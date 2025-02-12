@@ -25,7 +25,25 @@
             text-align: center;
             margin-top: 50px;
         }
+        
+        /* 音乐播放按钮样式 */
+        #musicButton {
+            padding: 8px 15px;    /* 调整内边距，使按钮更小 */
+            font-size: 14px;       /* 调整字体大小 */
+            background: #ff6699;   /* 保持按钮背景色 */
+            color: white;          /* 文字颜色为白色 */
+            border: none;          /* 去除边框 */
+            border-radius: 25px;   /* 保持圆角 */
+            cursor: pointer;      /* 鼠标悬停时显示为可点击 */
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);  /* 柔和阴影 */
+            transition: transform 0.3s;
+            font-family: 'Palatino', 'Palatino Linotype', 'Book Antiqua', 'STKaiti', 'KaiTi', serif;  /* 使用一致的字体 */
+        }
 
+        #musicButton:hover {
+            transform: scale(1.05); /* 鼠标悬停时轻微放大 */
+        }
+        
         /* 按钮样式 */
         button {
             padding: 15px 30px;
@@ -94,7 +112,7 @@
             <hr>
             <p>礼物编号：NO.20250214520</p>
             <p>礼物详情：🎁(Secret)</p>
-            <p style="color: #666; font-size: 14px;">请于恋爱存续期内凭此卡找dxx兑换</p>
+            <p style="color: #666; font-size: 14px;">请于恋爱存续期内凭此卡至dxx处线下兑换</p>
             <button class="save-btn" onclick="saveCard()">保存礼物卡</button>
         </div>
     </div>
