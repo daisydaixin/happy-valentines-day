@@ -149,31 +149,49 @@
         }
 
         // 保存礼物卡
+        // function saveCard() {
+        //     // 获取设备像素比（默认值设为2以适配高清屏幕）
+        //     const dpr = window.devicePixelRatio || 2;
+        //     // 设置缩放比例（至少为2）
+        //     const scale = 2;
+        
+        //     html2canvas(document.querySelector("#giftCard"), {
+        //         scale: scale,          // 提高渲染分辨率
+        //         useCORS: true,         // 允许跨域资源（如果有）
+        //         logging: false,        // 关闭日志输出
+        //         allowTaint: false,     // 避免污染Canvas
+        //         windowWidth: document.querySelector("#giftCard").scrollWidth * dpr, // 适配宽度
+        //         windowHeight: document.querySelector("#giftCard").scrollHeight * dpr // 适配高度
+        //     }).then(canvas => {
+        //         // 调整Canvas实际显示尺寸（避免图片拉伸）
+        //         canvas.style.width = "300px";    // 原始元素宽度
+        //         canvas.style.height = "auto";    // 保持比例
+        
+        //         const link = document.createElement('a');
+        //         link.download = `dxx的礼物卡_${new Date().toISOString().slice(0,19).replace(/[:T-]/g,'')}.png`;
+        //         link.href = canvas.toDataURL('image/png', 1.0); // 最高质量压缩
+        //         link.click();
+        //     });
+        // }
+
+
         function saveCard() {
-            // 获取设备像素比（默认值设为2以适配高清屏幕）
-            const dpr = window.devicePixelRatio || 2;
-            // 设置缩放比例（至少为2）
-            const scale = 2;
-        
-            html2canvas(document.querySelector("#giftCard"), {
-                scale: scale,          // 提高渲染分辨率
-                useCORS: true,         // 允许跨域资源（如果有）
-                logging: false,        // 关闭日志输出
-                allowTaint: false,     // 避免污染Canvas
-                windowWidth: document.querySelector("#giftCard").scrollWidth * dpr, // 适配宽度
-                windowHeight: document.querySelector("#giftCard").scrollHeight * dpr // 适配高度
-            }).then(canvas => {
-                // 调整Canvas实际显示尺寸（避免图片拉伸）
-                canvas.style.width = "300px";    // 原始元素宽度
-                canvas.style.height = "auto";    // 保持比例
-        
-                const link = document.createElement('a');
-                link.download = `dxx的礼物卡_${new Date().toISOString().slice(0,19).replace(/[:T-]/g,'')}.png`;
-                link.href = canvas.toDataURL('image/png', 1.0); // 最高质量压缩
-                link.click();
-            });
+            // 等待 200 毫秒确保卡片完全显示
+            setTimeout(() => {
+                html2canvas(document.querySelector("#giftCard"), {
+                    useCORS: true, // 允许跨域
+                    allowTaint: false,
+                    scale: 2  // 提高渲染分辨率，防止图片模糊
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'dxx的礼物卡.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }).catch(error => {
+                    console.error('html2canvas 错误:', error); // 捕获错误并打印
+                });
+            }, 200);
         }
-        
         // function saveCard() {
         //     html2canvas(document.querySelector("#giftCard")).then(canvas => {
         //         const link = document.createElement('a');
