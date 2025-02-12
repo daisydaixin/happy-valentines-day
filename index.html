@@ -150,31 +150,11 @@
 
         // 保存礼物卡
         function saveCard() {
-            const card = document.querySelector("#giftCard");
-            
-            // 强制重新渲染确保样式加载
-            void card.offsetWidth;
-
-            html2canvas(card, {
-                useCORS: true,
-                allowTaint: false,
-                scale: 2,
-                logging: true, // 开启日志
-                onclone: (clonedDoc) => {
-                    // 克隆文档时确保字体加载
-                    const clonedCard = clonedDoc.querySelector('#giftCard');
-                    clonedCard.style.fontFamily = "'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Comic Sans MS', cursive, 'STKaiti', serif";
-                }
-            }).then(canvas => {
+            html2canvas(document.querySelector("#giftCard")).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'dxx的礼物卡.png';
-                link.href = canvas.toDataURL('image/png', 1.0);
-                document.body.appendChild(link);
+                link.href = canvas.toDataURL();
                 link.click();
-                document.body.removeChild(link);
-            }).catch(error => {
-                console.error('保存失败:', error);
-                alert('保存失败，请确保页面内容已完全加载后重试');
             });
         }
     </script>
