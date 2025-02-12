@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Gift</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     
     <!-- 引入 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- 引入 html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <style>
         /* 更浅的粉色背景 */
@@ -148,12 +150,21 @@
 
         // 保存礼物卡
         function saveCard() {
-            html2canvas(document.querySelector("#giftCard")).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'dxx的礼物卡.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
+            // 等待 200 毫秒确保卡片完全显示
+            setTimeout(() => {
+                html2canvas(document.querySelector("#giftCard"), {
+                    useCORS: true, // 允许跨域
+                    allowTaint: false,
+                    scale: 2  // 提高渲染分辨率，防止图片模糊
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'dxx的礼物卡.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }).catch(error => {
+                    console.error('html2canvas 错误:', error); // 捕获错误并打印
+                });
+            }, 200);
         }
     </script>
 
